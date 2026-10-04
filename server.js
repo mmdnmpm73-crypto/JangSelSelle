@@ -1,77 +1,83 @@
-const express = require('express');
-const http = require('http');
-const { Server } = require('socket.io');
-const fs = require('fs');
-const path = require('path');
+const express = require("express");
+const http = require("http");
+const path = require("path");
+const fs = require("fs");
+const { Server } = require("socket.io");
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: true, credentials: true } });
-
+const io = new Server(server);
 const PORT = process.env.PORT || 3000;
-const DATA_FILE = path.join(__dirname, 'chat.json');
 
-app.use(express.static(path.join(__dirname, 'public')));
+const publicDir = path.join(__dirname, "public");
+const chatFile = path.join(__dirname, "chat.json");
+let messages = [];
 
-function loadMessages() {
+try {
+  if (fs.existsSync(chatFile)) {
+    const data = JSON.parse(fs.readFileSync(chatFile, "utf8"));
+    if (Array.isArray(data)) messages = data.slice(-300);
+  }
+} catch (e) {
+  console.error("Could not read chat.json:", e.message);
+}
+
+function saveMessages() {
   try {
-    if (!fs.existsSync(DATA_FILE)) return [];
-    const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-    return Array.isArray(data) ? data.slice(-300) : [];
-  } catch (_) { return []; }
-}
-function saveMessages(messages) {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(messages.slice(-300), null, 2), 'utf8');
+    fs.writeFileSync(chatFile, JSON.stringify(messages.slice(-300), null, 2), "utf8");
+  } catch (e) {
+    console.error("Could not save chat:", e.message);
+  }
 }
 
-let messages = loadMessages();
-const users = new Map();
+app.get("/health", (req, res) => {
+  res.json({ ok: true, service: "class-701-online" });
+});
 
-io.on('connection', socket => {
-  socket.emit('chat:history', messages);
-  socket.emit('online:count', users.size);
+app.use(express.static(publicDir));
 
-  socket.on('user:join', rawName => {
-    const name = String(rawName || '').trim().slice(0, 40);
-    if (!name) return;
-    users.set(socket.id, name);
-    socket.data.name = name;
-    io.emit('online:count', users.size);
-    io.emit('user:list', Array.from(users.values()));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(publicDir, "index.html"));
+});
+
+io.on("connection", (socket) => {
+  socket.emit("chat:history", messages);
+
+  socket.on("join", (name) => {
+    const safeName = String(name || "کاربر").trim().slice(0, 40);
+    socket.data.name = safeName || "کاربر";
   });
 
-  socket.on('chat:send', rawText => {
-    const name = socket.data.name;
-    const text = String(rawText || '').trim().slice(0, 500);
-    if (!name || !text) return;
+  socket.on("chat:send", (payload) => {
+    const name = String(payload?.name || socket.data.name || "کاربر").trim().slice(0, 40);
+    const text = String(payload?.text || "").trim().slice(0, 500);
+    if (!text) return;
+
     const msg = {
-      id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
-      name,
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+      name: name || "کاربر",
       text,
-      createdAt: Date.now()
+      time: new Date().toLocaleTimeString("fa-IR", { hour: "2-digit", minute: "2-digit" })
     };
+
     messages.push(msg);
     messages = messages.slice(-300);
-    saveMessages(messages);
-    io.emit('chat:new', msg);
+    saveMessages();
+    io.emit("chat:new", msg);
   });
 
-  socket.on('chat:delete', id => {
-    const name = socket.data.name;
-    const msg = messages.find(m => m.id === id);
-    if (!name || !msg || msg.name !== name) return;
-    messages = messages.filter(m => m.id !== id);
-    saveMessages(messages);
-    io.emit('chat:deleted', id);
-  });
+  socket.on("chat:delete", (payload) => {
+    const id = String(payload?.id || "");
+    const name = String(payload?.name || socket.data.name || "").trim();
+    const msg = messages.find((m) => m.id === id);
+    if (!msg || msg.name !== name) return;
 
-  socket.on('disconnect', () => {
-    users.delete(socket.id);
-    io.emit('online:count', users.size);
-    io.emit('user:list', Array.from(users.values()));
+    messages = messages.filter((m) => m.id !== id);
+    saveMessages();
+    io.emit("chat:delete", id);
   });
 });
 
-app.get('/health', (_, res) => res.json({ ok: true, online: users.size }));
-
-server.listen(PORT, () => console.log(`Class 701 online server running on port ${PORT}`));
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`Class 701 online server running on port ${PORT}`);
+});
