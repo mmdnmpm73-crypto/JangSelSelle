@@ -1,0 +1,10 @@
+{
+  "name": "class-701-online",
+  "version": "1.0.0",
+  "private": true,
+  "description": "مدرسه تمدن - کلاس ۷۰۱ با گپ آنلاین واقعی",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" },
+  "dependencies": { "express": "^4.21.2", "socket.io": "^4.8.1" }
+}
