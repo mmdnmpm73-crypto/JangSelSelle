@@ -6,152 +6,437 @@
 <title>مدرسه تمدن | شیفت عصر کلاس ۷۰۱</title>
 <style>
 *{box-sizing:border-box}
-:root{--bg:#07111f;--card:#0d1b2d;--blue:#168cff;--cyan:#19e6d1;--text:#eef7ff;--muted:#9db2c7}
+:root{
+  --bg:#07111f;--card:#0d1b2d;--card2:#10243a;--blue:#168cff;
+  --cyan:#19e6d1;--text:#eef7ff;--muted:#9db2c7;--danger:#ff5570;
+}
 body{margin:0;font-family:Tahoma,Arial,sans-serif;background:linear-gradient(135deg,#050b14,#071a2d 55%,#062d35);color:var(--text);min-height:100vh}
-button,input{font:inherit}button{cursor:pointer}
+button,input{font:inherit}
+button{cursor:pointer}
 header{padding:28px 18px;text-align:center;border-bottom:1px solid #17354d;background:rgba(4,13,25,.85);position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
-.logo{font-size:38px;font-weight:900;color:var(--cyan);text-shadow:0 0 20px #19e6d155}.subtitle{margin-top:8px;color:var(--muted);font-size:15px}
-.container{max-width:1050px;margin:auto;padding:22px 15px 50px}.nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:24px}
+.logo{font-size:38px;font-weight:900;color:var(--cyan);text-shadow:0 0 20px #19e6d155}
+.subtitle{margin-top:8px;color:var(--muted);font-size:15px}
+.container{max-width:1050px;margin:auto;padding:22px 15px 50px}
+.nav{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:24px}
 .nav button{border:1px solid #1d4b69;background:#0b1b2d;color:#dff7ff;padding:11px 17px;border-radius:13px;transition:.2s}
 .nav button:hover,.nav button.active{background:linear-gradient(135deg,#087be8,#10cfc4);color:white;border-color:transparent;transform:translateY(-2px)}
-.section{display:none}.section.active{display:block}.card{background:rgba(13,27,45,.9);border:1px solid #19405b;border-radius:20px;padding:20px;margin-bottom:18px;box-shadow:0 12px 35px #0004}
-h2{margin-top:0;color:var(--cyan)}table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border:1px solid #1c4964;border-radius:15px}
-th,td{padding:14px 10px;text-align:center;border-bottom:1px solid #18394f;border-left:1px solid #18394f}th{background:#0c3150;color:#7ffdf1}
-tr:last-child td{border-bottom:0}.day{font-weight:bold;color:#fff;background:#0b2238}
-.names{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}.name{padding:13px;background:#0b2033;border:1px solid #17435d;border-radius:12px}.name b{color:var(--cyan);margin-left:6px}
-.chat-box{height:430px;overflow-y:auto;padding:12px;background:#071523;border:1px solid #19415a;border-radius:16px}
-.msg{max-width:82%;margin:10px 0;padding:10px 12px;border-radius:14px;background:#102a41;border:1px solid #1a4763}.msg.mine{margin-right:auto;background:#073d52;border-color:#087b88}
-.msg .author{font-size:12px;color:var(--cyan);font-weight:bold;margin-bottom:5px}.msg .time{font-size:10px;color:#7893a8;margin-top:6px}
-.msg-actions{margin-top:7px}.delete{border:0;background:transparent;color:#ff7187;font-size:12px;padding:2px 0}
-.chat-form{display:flex;gap:8px;margin-top:12px}.chat-form input{flex:1;background:#081827;color:white;border:1px solid #21506a;border-radius:12px;padding:12px;outline:none}.chat-form input:focus{border-color:var(--cyan)}
+.section{display:none}.section.active{display:block}
+.card{background:rgba(13,27,45,.9);border:1px solid #19405b;border-radius:20px;padding:20px;margin-bottom:18px;box-shadow:0 12px 35px #0004}
+h2{margin-top:0;color:var(--cyan)}
+table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border:1px solid #1c4964;border-radius:15px}
+th,td{padding:14px 10px;text-align:center;border-bottom:1px solid #18394f;border-left:1px solid #18394f}
+th{background:#0c3150;color:#7ffdf1}
+tr:last-child td{border-bottom:0}
+.day{font-weight:bold;color:#fff;background:#0b2238}
+.today{outline:2px solid var(--cyan);outline-offset:-2px;background:#10394b}
+.names{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.name{padding:13px;background:#0b2033;border:1px solid #17435d;border-radius:12px}
+.name b{color:var(--cyan);margin-left:6px}
+
+
+
+
+
+
+
+
+.chat-form input{flex:1;background:#081827;color:white;border:1px solid #21506a;border-radius:12px;padding:12px;outline:none}
+.chat-form input:focus{border-color:var(--cyan)}
 .send{background:linear-gradient(135deg,#087be8,#10cfc4);color:white;border:0;border-radius:12px;padding:0 20px;font-weight:bold}
-.status{font-size:12px;color:var(--muted);margin-top:8px}.status.online{color:#63f5c4}.status.offline{color:#ff9aab}
-.empty{text-align:center;color:var(--muted);padding:50px 10px}.overlay{position:fixed;inset:0;background:#020811eF;display:flex;align-items:center;justify-content:center;z-index:20;padding:20px}
+.empty{text-align:center;color:var(--muted);padding:50px 10px}
+.overlay{position:fixed;inset:0;background:#020811eF;display:flex;align-items:center;justify-content:center;z-index:20;padding:20px}
 .name-modal{width:min(440px,100%);background:#0b1c2d;border:1px solid #1c5774;border-radius:24px;padding:28px;box-shadow:0 20px 70px #0008;text-align:center}
-.name-modal h1{color:var(--cyan);margin-top:0}.name-modal input{width:100%;padding:14px;border-radius:13px;border:1px solid #28627d;background:#061421;color:white;outline:none;margin:12px 0}
+.name-modal h1{color:var(--cyan);margin-top:0}
+.name-modal input{width:100%;padding:14px;border-radius:13px;border:1px solid #28627d;background:#061421;color:white;outline:none;margin:12px 0}
 .name-modal button{width:100%;padding:13px;border:0;border-radius:13px;background:linear-gradient(135deg,#087be8,#10cfc4);color:white;font-weight:bold}
-.hint{font-size:12px;color:#8fa8bc;margin-top:10px}.toast{position:fixed;bottom:20px;left:20px;background:#102b40;border:1px solid #24708a;padding:11px 15px;border-radius:12px;display:none;z-index:30}
-@media(max-width:600px){.logo{font-size:27px}th,td{font-size:12px;padding:10px 5px}.chat-form{flex-direction:column}.send{padding:12px}.msg{max-width:92%}}
+.hint{font-size:12px;color:#8fa8bc;margin-top:10px}
+.toast{position:fixed;bottom:20px;left:20px;background:#102b40;border:1px solid #24708a;padding:11px 15px;border-radius:12px;display:none;z-index:30}
+@media(max-width:600px){.logo{font-size:27px}th,td{font-size:12px;padding:10px 5px}.send{padding:12px}}
+
+.exam-next{font-size:24px;font-weight:900;color:var(--cyan);margin:10px 0}
+.countdown{font-size:30px;font-weight:900;text-align:center;padding:18px;margin-top:12px;border-radius:16px;background:#071a2a;border:1px solid #1d6073;direction:ltr}
+.exam-list{display:grid;gap:10px}
+.exam-item{padding:14px;border-radius:14px;background:#0b2033;border:1px solid #17435d}
+.exam-item b{color:var(--cyan)}
+
+.quiz-wrap{display:grid;gap:14px}
+.quiz-question{padding:16px;border:1px solid #1d4b69;border-radius:15px;background:#0b2033}
+.quiz-question h3{margin:0 0 12px;color:#fff}
+.quiz-options{display:grid;gap:8px}
+.quiz-option{display:flex;align-items:center;gap:8px;padding:10px;border:1px solid #23516b;border-radius:11px;background:#081827;color:#eef7ff;cursor:pointer}
+.quiz-option:hover{border-color:var(--cyan)}
+.quiz-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.quiz-btn{border:0;border-radius:12px;padding:12px 18px;font-weight:bold;background:linear-gradient(135deg,#087be8,#10cfc4);color:#fff}
+.quiz-result{padding:15px;border-radius:14px;background:#0b2d3b;border:1px solid #24708a;color:#fff;display:none}
+.word{font-size:24px;font-weight:900;color:var(--cyan);direction:rtl}
+.exam-status{padding:12px;border-radius:12px;background:#0b2033;border:1px solid #17435d;margin-bottom:12px}
 </style>
 </head>
 <body>
+
 <div id="nameOverlay" class="overlay">
   <div class="name-modal">
     <h1>👋 خوش آمدی</h1>
     <p>نامت را وارد کن تا در سایت ذخیره شود.</p>
     <input id="nameInput" type="text" maxlength="40" placeholder="نام و نام خانوادگی">
     <button onclick="saveName()">ورود به سایت</button>
-    <div class="hint">نام فقط در مرورگر همین دستگاه ذخیره می‌شود.</div>
+    <div class="hint">این نام فقط روی همین دستگاه ذخیره می‌شود.</div>
   </div>
 </div>
 
-<header><div class="logo">🏫 مدرسه تمدن</div><div class="subtitle">شیفت عصر — کلاس ۷۰۱</div></header>
+<header>
+  <div class="logo">🏫 مدرسه تمدن</div>
+  <div class="subtitle">شیفت عصر — کلاس ۷۰۱</div>
+</header>
+
 <main class="container">
-<nav class="nav">
-<button class="active" onclick="showSection('home',this)">🏠 خانه</button>
-<button onclick="showSection('schedule',this)">📅 برنامه هفتگی</button>
-<button onclick="showSection('students',this)">👥 اسامی دانش‌آموزان</button>
-<button onclick="showSection('chat',this)">💬 گپ کلاس</button>
-</nav>
+  <nav class="nav">
+    <button class="active" onclick="showSection('home',this)">🏠 خانه</button>
+    <button onclick="showSection('schedule',this)">📅 برنامه هفتگی</button>
+    <button onclick="showSection('students',this)">👥 اسامی دانش‌آموزان</button>
+     <button onclick="showSection('exams',this)">📝 امتحان‌ها</button>
+  </nav>
 
-<section id="home" class="section active"><div class="card">
-<h2>سلام <span id="welcomeName"></span> 👋</h2>
-<p>به سایت کلاس ۷۰۱ مدرسه تمدن خوش آمدی.</p>
-<p style="color:var(--muted)">از منوی بالا می‌توانی برنامه هفتگی، اسامی دانش‌آموزان و گپ کلاس را ببینی.</p>
-</div></section>
+  <section id="home" class="section active">
+    <div class="card">
+      <h2>سلام <span id="welcomeName"></span> 👋</h2>
+      <p>به سایت کلاس ۷۰۱ مدرسه تمدن خوش آمدی.</p>
+      <p style="color:var(--muted)">از منوی بالا می‌توانی برنامه هفتگی، اسامی دانش‌آموزان و امتحان‌ها را ببینی.</p>
+    </div>
+    <div class="card">
+      <h2>⏳ امتحان بعدی</h2>
+      <div id="nextExamTitle" class="exam-next">امتحان عربی — چهارشنبه ساعت ۱۵:۴۵</div>
+      <div id="countdown" class="countdown">در حال محاسبه...</div>
+      <p class="hint" style="text-align:center">روز : ساعت : دقیقه : ثانیه</p>
+    </div>
+  </section>
 
-<section id="schedule" class="section"><div class="card">
-<h2>📅 برنامه هفتگی کلاس ۷۰۱</h2>
-<table><thead><tr><th>روز</th><th>زنگ اول</th><th>زنگ دوم</th><th>زنگ سوم</th></tr></thead>
-<tbody>
-<tr><td class="day">شنبه</td><td>ریاضی</td><td>تفکر</td><td>علوم تجربی (شیمی)</td></tr>
-<tr><td class="day">یکشنبه</td><td>علوم تجربی (زیست)</td><td>مطالعات</td><td>ورزش</td></tr>
-<tr><td class="day">دوشنبه</td><td>ریاضی</td><td>انگلیسی</td><td>پیام‌های آسمانی</td></tr>
-<tr><td class="day">سه‌شنبه</td><td>فارسی</td><td>کار و فناوری</td><td>فرهنگ و هنر</td></tr>
-<tr><td class="day">چهارشنبه</td><td>قرآن</td><td>نگارش</td><td>عربی</td></tr>
-</tbody></table>
-</div></section>
+  <section id="schedule" class="section">
+    <div class="card">
+      <h2>📅 برنامه هفتگی کلاس ۷۰۱</h2>
+      <table>
+        <thead><tr><th>روز</th><th>زنگ اول</th><th>زنگ دوم</th><th>زنگ سوم</th></tr></thead>
+        <tbody>
+          <tr><td class="day">شنبه</td><td>ریاضی</td><td>تفکر</td><td>علوم تجربی (شیمی)</td></tr>
+          <tr><td class="day">یکشنبه</td><td>علوم تجربی (زیست)</td><td>مطالعات</td><td>ورزش</td></tr>
+          <tr><td class="day">دوشنبه</td><td>ریاضی</td><td>انگلیسی</td><td>پیام‌های آسمانی</td></tr>
+          <tr><td class="day">سه‌شنبه</td><td>فارسی</td><td>کار و فناوری</td><td>فرهنگ و هنر</td></tr>
+          <tr><td class="day">چهارشنبه</td><td>قرآن</td><td>نگارش</td><td>عربی</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
-<section id="students" class="section"><div class="card"><h2>👥 اسامی دانش‌آموزان</h2><div class="names" id="names"></div></div></section>
+  <section id="exams" class="section">
+    <div class="card">
+      <h2>📝 امتحان‌ها</h2>
+      <div class="exam-status" id="examStatus">امتحان بعدی: عربی — چهارشنبه ساعت ۱۵:۴۵</div>
+      <div class="exam-list">
+        <div class="exam-item"><b>چهارشنبه</b> — عربی — ساعت ۱۵:۴۵</div>
+        <div class="exam-item"><b>شنبه</b> — تفکر — ساعت ۱۴:۱۵</div>
+        <div class="exam-item"><b>شنبه</b> — علوم تجربی (شیمی) — ساعت ۱۵:۴۵</div>
+        <div class="exam-item"><b>یکشنبه</b> — علوم تجربی (زیست) — ساعت ۱۲:۴۵</div>
+      </div>
+    </div>
 
-<section id="chat" class="section"><div class="card">
-<h2>💬 گپ آنلاین کلاس ۷۰۱</h2>
-<div id="chatBox" class="chat-box"></div>
-<form class="chat-form" onsubmit="sendMessage(event)">
-<input id="messageInput" maxlength="500" autocomplete="off" placeholder="پیامت را بنویس...">
-<button class="send" type="submit">ارسال</button>
-</form>
-<div id="connectionStatus" class="status">در حال اتصال به سرور...</div>
-<p class="hint">پیام‌ها بین کاربران سایت به‌صورت آنلاین همگام می‌شوند.</p>
-</div></section>
+    <div class="card" id="arabicVocabCard">
+      <h2>📚 واژه‌های امتحان عربی</h2>
+      <table>
+        <thead><tr><th>عربی</th><th>فارسی</th></tr></thead>
+        <tbody>
+          <tr><td class="word">شَجَرَةٌ</td><td>درخت</td></tr>
+          <tr><td class="word">صَفٌّ</td><td>کلاس</td></tr>
+          <tr><td class="word">طَالِبٌ</td><td>دانش‌آموز پسر</td></tr>
+          <tr><td class="word">طَالِبَةٌ</td><td>دانش‌آموز دختر</td></tr>
+          <tr><td class="word">طَبِيبٌ</td><td>پزشک</td></tr>
+          <tr><td class="word">غُرْفَةٌ</td><td>اتاق</td></tr>
+          <tr><td class="word">فِي</td><td>در، داخل</td></tr>
+          <tr><td class="word">كَيْفَ؟</td><td>چطور؟</td></tr>
+          <tr><td class="word">لُغَةٌ</td><td>زبان</td></tr>
+          <tr><td class="word">مَا</td><td>چه؟ چیست؟</td></tr>
+          <tr><td class="word">مُبْتَسِمًا</td><td>با تبسم، با لبخند</td></tr>
+          <tr><td class="word">مَنْ؟</td><td>چه کسی؟</td></tr>
+          <tr><td class="word">وَلَدٌ</td><td>پسر، فرزند</td></tr>
+          <tr><td class="word">هَلْ؟</td><td>آیا؟</td></tr>
+          <tr><td class="word">أُسْتَاذٌ</td><td>استاد</td></tr>
+          <tr><td class="word">اِسْمُكَ</td><td>نام تو</td></tr>
+          <tr><td class="word">اِسْمِي</td><td>نام من</td></tr>
+          <tr><td class="word">أَهْلًا بِكُمْ</td><td>خوش آمدید</td></tr>
+          <tr><td class="word">بِنْتٌ</td><td>دختر</td></tr>
+          <tr><td class="word">تِلْمِيذٌ</td><td>دانش‌آموز</td></tr>
+          <tr><td class="word">تَلَامِيذُ</td><td>دانش‌آموزان</td></tr>
+          <tr><td class="word">حَقِيبَةٌ</td><td>کیف، چمدان</td></tr>
+          <tr><td class="word">حَقَائِبُ</td><td>کیف‌ها، چمدان‌ها</td></tr>
+          <tr><td class="word">دَخَلَ</td><td>داخل شد</td></tr>
+        </tbody>
+      </table>
+      <div class="quiz-actions">
+        <button class="quiz-btn" onclick="startArabicQuiz()">▶️ شروع آزمون عربی (۱ دقیقه)</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>✏️ آزمون عربی</h2>
+      <div id="quizTimer" class="countdown">آزمون هنوز شروع نشده</div>
+      <p id="quizInstruction" class="hint">برای شروع، دکمه «شروع آزمون» را بزن.</p>
+      <div id="arabicQuiz" class="quiz-wrap"></div>
+      <div class="quiz-actions">
+        <button id="finishQuizBtn" class="quiz-btn" onclick="submitArabicQuiz()" style="display:none">⏹️ اتمام آزمون</button>
+        <button id="resetQuizBtn" class="quiz-btn" onclick="resetArabicQuiz()">شروع دوباره</button>
+      </div>
+      <div id="arabicResult" class="quiz-result"></div>
+    </div>
+  </section>
+
+  <section id="students" class="section">
+    <div class="card">
+      <h2>👥 اسامی دانش‌آموزان</h2>
+      <div class="names" id="names"></div>
+    </div>
+  </section>
 </main>
-<div id="toast" class="toast"></div>
 
-<script src="/socket.io/socket.io.js"></script>
+<div id="toast" class="toast"></div>
 <script>
-const students=["احمد احمدزاده","شهنام اشوری","محمد رفان براتی","محمد طاها پورکت داد","متین تقی‌زاده زاده","محمد رشیا جاوید","محسن حسینی","فرزاد حسینی","امیر عباس حیدری","خسرو خدری","پارسا خوش اخلاق","محمد رسول مقدم","مصطفی رضازاده","حسن الشویلی","سعید عربخانی","محمد مران کاکری","محمد رضا مرادی","پارسا معین ال قرابایی","محمد کمیل یزدان‌پناه"];
-let currentName=localStorage.getItem("class701_name")||"";
-let messages=[];
-let socket=null;
+const students = [
+  "احمد احمدزاده",
+  "شهنام اشوری",
+  "محمد رفان براتی",
+  "محمد طاها پورکت داد",
+  "متین تقی‌زاده زاده",
+  "محمد رشیا جاوید",
+  "محسن حسینی",
+  "فرزاد حسینی",
+  "امیر عباس حیدری",
+  "خسرو خدری",
+  "پارسا خوش اخلاق",
+  "محمد رسول مقدم",
+  "مصطفی رضازاده",
+  "حسن الشویلی",
+  "سعید عربخانی",
+  "محمد مران کاکری",
+  "محمد رضا مرادی",
+  "پارسا معین ال قرابایی",
+  "محمد کمیل یزدان‌پناه"
+];
+
+let currentName = localStorage.getItem("class701_name");
 
 function saveName(){
- const name=document.getElementById("nameInput").value.trim();
- if(!name){showToast("لطفاً نامت را وارد کن.");return}
- currentName=name;localStorage.setItem("class701_name",name);
- document.getElementById("nameOverlay").style.display="none";
- document.getElementById("welcomeName").textContent=name;
- connectSocket();
+  const input=document.getElementById("nameInput");
+  const name=input.value.trim();
+  if(!name){showToast("لطفاً نامت را وارد کن.");return;}
+  currentName=name;
+  localStorage.setItem("class701_name",name);
+  document.getElementById("nameOverlay").style.display="none";
+  document.getElementById("welcomeName").textContent=name;
 }
+
 function showSection(id,btn){
- document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
- btn.classList.add("active");
- if(id==="chat") renderChat();
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  const section=document.getElementById(id);
+  if(section) section.classList.add("active");
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
 }
+
 function renderNames(){
- document.getElementById("names").innerHTML=students.map((n,i)=>`<div class="name"><b>${i+1}.</b>${escapeHTML(n)}</div>`).join("");
+  const box=document.getElementById("names");
+  if(!box)return;
+  box.innerHTML=students.map((n,i)=>
+    `<div class="name"><b>${i+1}.</b>${escapeHTML(n)}</div>`
+  ).join("");
 }
-function connectSocket(){
- if(socket||!currentName)return;
- socket=io({transports:["websocket","polling"]});
- socket.on("connect",()=>{setStatus("متصل به گپ آنلاین","online");socket.emit("join",currentName)});
- socket.on("disconnect",()=>setStatus("ارتباط با سرور قطع شد؛ در حال تلاش دوباره...","offline"));
- socket.on("connect_error",()=>setStatus("اتصال برقرار نشد؛ دوباره تلاش می‌شود...","offline"));
- socket.on("chat:history",(list)=>{messages=Array.isArray(list)?list:[];renderChat()});
- socket.on("chat:new",(msg)=>{messages.push(msg);if(messages.length>300)messages.shift();renderChat()});
- socket.on("chat:delete",(id)=>{messages=messages.filter(m=>m.id!==id);renderChat()});
+
+// برنامه‌ی شمارش معکوس امتحان‌ها؛ پس از پایان هر امتحان، امتحان بعدی فعال می‌شود.
+const examSchedule = [
+  {name:"عربی", day:3, hour:15, minute:45},
+  {name:"تفکر", day:6, hour:14, minute:15},
+  {name:"علوم تجربی (شیمی)", day:6, hour:15, minute:45},
+  {name:"علوم تجربی (زیست)", day:0, hour:12, minute:45}
+];
+
+function getNextExam(){
+  const now=new Date();
+  let best=null;
+  for(const ex of examSchedule){
+    const target=new Date(now);
+    let days=(ex.day-now.getDay()+7)%7;
+    target.setDate(now.getDate()+days);
+    target.setHours(ex.hour,ex.minute,0,0);
+    if(target<=now) target.setDate(target.getDate()+7);
+    if(!best || target<best.target) best={...ex,target};
+  }
+  return best;
 }
-function setStatus(t,c){const e=document.getElementById("connectionStatus");e.textContent=t;e.className="status "+c}
-function sendMessage(e){
- e.preventDefault();
- const input=document.getElementById("messageInput"),text=input.value.trim();
- if(!text)return;
- if(!socket||!socket.connected){showToast("هنوز به سرور وصل نشده‌ای.");return}
- socket.emit("chat:send",{name:currentName,text:text});
- input.value="";input.focus();
+
+function updateCountdown(){
+  const el=document.getElementById("countdown");
+  if(!el)return;
+  const ex=getNextExam();
+  const diff=ex.target.getTime()-Date.now();
+  const daysFa=["یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه","جمعه","شنبه"];
+  const title=document.getElementById("nextExamTitle");
+  const status=document.getElementById("examStatus");
+  if(title) title.textContent="امتحان "+ex.name+" — "+daysFa[ex.day]+" ساعت "+String(ex.hour).padStart(2,"0")+":"+String(ex.minute).padStart(2,"0");
+  if(status) status.textContent="امتحان بعدی: "+ex.name+" — "+daysFa[ex.day]+" ساعت "+String(ex.hour).padStart(2,"0")+":"+String(ex.minute).padStart(2,"0");
+  if(diff<=0){el.textContent="امتحان شروع شده است";return;}
+  const total=Math.floor(diff/1000);
+  const days=Math.floor(total/86400);
+  const hours=Math.floor((total%86400)/3600);
+  const minutes=Math.floor((total%3600)/60);
+  const seconds=total%60;
+  el.textContent=String(days).padStart(2,"0")+" روز  "+String(hours).padStart(2,"0")+":"+String(minutes).padStart(2,"0")+":"+String(seconds).padStart(2,"0");
 }
-function deleteMessage(id){
- if(socket&&socket.connected)socket.emit("chat:delete",{id,name:currentName});
+
+const arabicQuizData=[
+ ["شَجَرَةٌ یعنی چه؟",["درخت","کلاس","زبان","پزشک"],0],
+ ["صَفٌّ یعنی چه؟",["استاد","داخل شد","کلاس","چطور"],2],
+ ["طَالِبٌ یعنی چه؟",["دانش‌آموز پسر","پزشک","دانش‌آموز دختر","استاد"],0],
+ ["طَالِبَةٌ یعنی چه؟",["درخت","دانش‌آموز دختر","کلاس","زبان"],1],
+ ["طَبِيبٌ یعنی چه؟",["زبان","پزشک","درخت","دانش‌آموز"],1],
+ ["غُرْفَةٌ یعنی چه؟",["اتاق","خوش آمدید","چطور","پزشک"],0],
+ ["فِي یعنی چه؟",["نام من","در، داخل","استاد","پسر"],1],
+ ["كَيْفَ؟ یعنی چه؟",["زبان","درخت","چطور؟","چه کسی؟"],2],
+ ["لُغَةٌ یعنی چه؟",["استاد","زبان","پزشک","کلاس"],1],
+ ["مَا یعنی چه؟",["چه؟ چیست؟","آیا؟","نام تو","داخل شد"],0],
+ ["مُبْتَسِمًا یعنی چه؟",["با تبسم، با لبخند","دانش‌آموزان","دختر","چه کسی؟"],0],
+ ["مَنْ؟ یعنی چه؟",["چطور؟","چه کسی؟","چه؟ چیست؟","آیا؟"],1],
+ ["وَلَدٌ یعنی چه؟",["پسر، فرزند","دختر","استاد","اتاق"],0],
+ ["هَلْ؟ یعنی چه؟",["در، داخل","آیا؟","نام من","خوش آمدید"],1],
+ ["أُسْتَاذٌ یعنی چه؟",["دانش‌آموز","استاد","پزشک","زبان"],1],
+ ["اِسْمُكَ یعنی چه؟",["نام تو","نام من","چه کسی؟","کلاس"],0],
+ ["اِسْمِي یعنی چه؟",["نام تو","نام من","پسر","درخت"],1],
+ ["أَهْلًا بِكُمْ یعنی چه؟",["داخل شد","خوش آمدید","با لبخند","چطور؟"],1],
+ ["بِنْتٌ یعنی چه؟",["پسر","دختر","دانش‌آموزان","پزشک"],1],
+ ["تِلْمِيذٌ یعنی چه؟",["دانش‌آموز","استاد","دانش‌آموزان","دختر"],0],
+ ["تَلَامِيذُ یعنی چه؟",["دانش‌آموز","دانش‌آموزان","پزشکان","دختران"],1],
+ ["حَقِيبَةٌ یعنی چه؟",["کیف، چمدان","اتاق","زبان","کلاس"],0],
+ ["حَقَائِبُ یعنی چه؟",["کیف‌ها، چمدان‌ها","دانش‌آموزان","پزشکان","استادان"],0],
+ ["دَخَلَ یعنی چه؟",["داخل شد","خوش آمدید","نام من","چطور؟"],0]
+];
+
+let arabicQuizStarted=false;
+let arabicQuizFinished=false;
+let arabicQuizSeconds=60;
+let arabicQuizTimer=null;
+
+function renderArabicQuiz(){
+  const box=document.getElementById("arabicQuiz");
+  if(!box)return;
+  box.innerHTML=arabicQuizData.map((q,i)=>`
+    <div class="quiz-question">
+      <h3>${i+1}. ${q[0]}</h3>
+      <div class="quiz-options">
+        ${q[1].map((opt,j)=>`<label class="quiz-option"><input type="radio" name="aq${i}" value="${j}"><span>${escapeHTML(opt)}</span></label>`).join("")}
+      </div>
+    </div>`).join("");
+  box.style.display="none";
 }
-function renderChat(){
- const box=document.getElementById("chatBox");if(!box)return;
- if(!messages.length){box.innerHTML='<div class="empty">هنوز پیامی در گپ نیست.<br>اولین پیام را تو بفرست! 👋</div>';return}
- box.innerHTML=messages.map(m=>{
-   const mine=m.name===currentName;
-   return `<div class="msg ${mine?"mine":""}">
-    <div class="author">${escapeHTML(m.name)}</div>
-    <div>${escapeHTML(m.text)}</div>
-    <div class="time">${escapeHTML(m.time||"")}</div>
-    ${mine?`<div class="msg-actions"><button class="delete" onclick="deleteMessage('${escapeHTML(m.id)}')">🗑 پاک کردن پیام</button></div>`:""}
-   </div>`;
- }).join("");
- box.scrollTop=box.scrollHeight;
+
+function startArabicQuiz(){
+  if(arabicQuizStarted && !arabicQuizFinished)return;
+  arabicQuizStarted=true;
+  arabicQuizFinished=false;
+  arabicQuizSeconds=60;
+
+  document.getElementById("arabicVocabCard").style.display="none";
+  document.getElementById("arabicQuiz").style.display="grid";
+  document.getElementById("finishQuizBtn").style.display="inline-block";
+  document.getElementById("resetQuizBtn").style.display="none";
+  document.getElementById("quizInstruction").textContent="۶۰ ثانیه وقت داری. می‌توانی زودتر «اتمام آزمون» را بزنی.";
+  document.getElementById("arabicResult").style.display="none";
+
+  document.querySelectorAll('#arabicQuiz input[type="radio"]').forEach(x=>x.checked=false);
+  updateQuizTimer();
+  clearInterval(arabicQuizTimer);
+  arabicQuizTimer=setInterval(()=>{
+    arabicQuizSeconds--;
+    updateQuizTimer();
+    if(arabicQuizSeconds<=0){
+      clearInterval(arabicQuizTimer);
+      submitArabicQuiz();
+    }
+  },1000);
 }
-function escapeHTML(str){return String(str).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]))}
-function showToast(t){const x=document.getElementById("toast");x.textContent=t;x.style.display="block";clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>x.style.display="none",2200)}
+
+function updateQuizTimer(){
+  const el=document.getElementById("quizTimer");
+  if(!el)return;
+  el.textContent=arabicQuizStarted && !arabicQuizFinished
+    ? "زمان باقی‌مانده: "+String(arabicQuizSeconds).padStart(2,"0")+" ثانیه"
+    : "آزمون هنوز شروع نشده";
+}
+
+function submitArabicQuiz(){
+  if(!arabicQuizStarted || arabicQuizFinished)return;
+  arabicQuizFinished=true;
+  clearInterval(arabicQuizTimer);
+
+  let score=0, unanswered=0;
+  arabicQuizData.forEach((q,i)=>{
+    const picked=document.querySelector(`input[name="aq${i}"]:checked`);
+    if(!picked){unanswered++;return;}
+    if(Number(picked.value)===q[2])score++;
+  });
+
+  document.getElementById("arabicQuiz").style.display="none";
+  document.getElementById("finishQuizBtn").style.display="none";
+  document.getElementById("resetQuizBtn").style.display="inline-block";
+  document.getElementById("quizTimer").textContent="آزمون تمام شد";
+  document.getElementById("quizInstruction").textContent="نتیجه آزمون:";
+  const result=document.getElementById("arabicResult");
+  result.style.display="block";
+  result.innerHTML=`<b>نمره: ${score} از ${arabicQuizData.length}</b><br>
+  پاسخ‌نداده: ${unanswered} سؤال — پاسخ‌های بدون جواب نمره ۰ دارند.`;
+}
+
+function resetArabicQuiz(){
+  clearInterval(arabicQuizTimer);
+  arabicQuizStarted=false;
+  arabicQuizFinished=false;
+  arabicQuizSeconds=60;
+  renderArabicQuiz();
+  document.getElementById("arabicVocabCard").style.display="block";
+  document.getElementById("finishQuizBtn").style.display="none";
+  document.getElementById("resetQuizBtn").style.display="inline-block";
+  document.getElementById("quizTimer").textContent="آزمون هنوز شروع نشده";
+  document.getElementById("quizInstruction").textContent="برای شروع، دکمه «شروع آزمون» را بزن.";
+  document.getElementById("arabicResult").style.display="none";
+}
+
+function showToast(t){
+  const x=document.getElementById("toast");
+  x.textContent=t;
+  x.style.display="block";
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>x.style.display="none",2200);
+}
+
+function escapeHTML(str){
+  return String(str).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+function showToast(t){
+  const x=document.getElementById("toast");x.textContent=t;x.style.display="block";
+  clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>x.style.display="none",2200);
+}
+
 renderNames();
-if(currentName){document.getElementById("nameOverlay").style.display="none";document.getElementById("welcomeName").textContent=currentName;connectSocket()}
+renderArabicQuiz();
+if(currentName){
+  document.getElementById("nameOverlay").style.display="none";
+  document.getElementById("welcomeName").textContent=currentName;
+}
+
+renderNames();
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+if(currentName){
+  document.getElementById("nameOverlay").style.display="none";
+  document.getElementById("welcomeName").textContent=currentName;
+}
+
 </script>
 </body>
 </html>
